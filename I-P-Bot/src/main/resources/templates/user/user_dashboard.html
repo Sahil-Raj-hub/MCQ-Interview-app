@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Candidate Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        a {
+            display: block;
+            margin: 10px 0;
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            width: 250px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Optional: Style for future list items */
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Welcome to Candidate Dashboard</h2>
+
+    <ul>
+        <li><a th:href="@{/questions/quiz-selection}">Attempt Questions</a></li>
+        <!--
+        <li><a th:href="@{/user/results_answers/{userId}(userId=${user.id})}">Results and Answers</a></li>
+        <li><a th:href="@{/user/view_results/{userId}(userId=${user.id})}">View Results</a></li>
+        <li><a th:href="@{/user/contact_us}">Contact Us</a></li>
+        <li><a th:href="@{/auth/login}">Logout</a></li>
+        -->
+    </ul>
+	<a th:href="@{/}">Back to Home</a>
+
+</body>
+</html>

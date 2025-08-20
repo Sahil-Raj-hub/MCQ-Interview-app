@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Attempt Questions</title>
+    <style>
+        body { font-family: Arial; margin: 30px; }
+        .question-block { margin-bottom: 25px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; }
+        .question-text { font-weight: bold; margin-bottom: 10px; }
+        .options label { display: block; margin-bottom: 5px; }
+        .submit-btn { padding: 10px 20px; font-size: 16px; background-color: #0078D7; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .submit-btn:hover { background-color: #005fa3; }
+    </style>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+		    const submitBtn = document.getElementById("submitBtn");
+		    const radios = document.querySelectorAll("input[type='radio']");
+
+		    function checkAnswers() {
+		        const anySelected = Array.from(radios).some(r => r.checked);
+		        submitBtn.disabled = !anySelected;
+		    }
+
+		    radios.forEach(radio => {
+		        radio.addEventListener("change", checkAnswers);
+		    });
+		});
+	</script>
+		
+</head>
+<body>
+    <h2>Attempt the Quiz</h2>
+
+    <form th:action="@{/questions/submit_answers}" method="post">
+        <div th:each="q : ${questions}" class="question-block">
+            <div class="question-text" th:text="${q.text}">Question text here</div>
+
+            <!-- Hidden input to send question ID -->
+            <input type="hidden" th:name="'questionIds[' + ${q.id} + ']'" th:value="${q.id}" />
+
+            <div class="options">
+                <label>
+                    <input type="radio" th:name="'answers[' + ${q.id} + ']'" value="A" />
+                    <span th:text="${q.optionA}">Option A</span>
+                </label>
+                <label>
+                    <input type="radio" th:name="'answers[' + ${q.id} + ']'" value="B" />
+                    <span th:text="${q.optionB}">Option B</span>
+                </label>
+                <label>
+                    <input type="radio" th:name="'answers[' + ${q.id} + ']'" value="C" />
+                    <span th:text="${q.optionC}">Option C</span>
+                </label>
+                <label>
+                    <input type="radio" th:name="'answers[' + ${q.id} + ']'" value="D" />
+                    <span th:text="${q.optionD}">Option D</span>
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" id="submitBtn" disabled class="submit-btn">Submit Answers</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Question</title>
+    <meta charset="UTF-8"/>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h2>Add New MCQ Question</h2>
+
+    <form th:action="@{/admin/add_question}" th:object="${question}" method="post">
+        <input type="hidden" th:field="*{id}" value="" />
+
+        <label>Category:</label>
+        <select th:field="*{category}">
+            <option th:each="cat : ${categories}" th:value="${cat}" th:text="${cat}"></option>
+        </select>
+
+        <label>Difficulty:</label>
+        <select th:field="*{difficulty}">
+            <option th:each="diff : ${difficulties}" th:value="${diff}" th:text="${diff}"></option>
+        </select>
+
+        <label>Question:</label>
+        <textarea th:field="*{text}" rows="3" required></textarea>
+
+        <label>Option A:</label>
+        <input type="text" th:field="*{optionA}" required/>
+
+        <label>Option B:</label>
+        <input type="text" th:field="*{optionB}" required/>
+
+        <label>Option C:</label>
+        <input type="text" th:field="*{optionC}" required/>
+
+        <label>Option D:</label>
+        <input type="text" th:field="*{optionD}" required/>
+
+        <label>Correct Answer:</label>
+        <select th:field="*{correctAnswer}" required>
+            <option value="A">Option A</option>
+            <option value="B">Option B</option>
+            <option value="C">Option C</option>
+            <option value="D">Option D</option>
+        </select>
+
+        <label>Expected Keyword(s):</label>
+        <input type="text" th:field="*{expectedKeyword}" placeholder="e.g. polymorphism, abstract class"/>
+
+        <button type="submit">Save Question</button>
+    </form>
+	<a th:href="@{/admin/dashboard}" class="back-button">⬅ Back to Admin Dashboard</a>
+
+</body>
+</html>

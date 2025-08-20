@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        .correct {
+            color: green;
+            font-weight: bold;
+        }
+        .incorrect {
+            color: red;
+            font-weight: bold;
+        }
+        .summary {
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .question-block {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Your Quiz Results</h2>
+
+    <div class="summary">
+        <ul>
+            <li><strong>Total Questions:</strong> <span th:text="${totalQuestions}"></span></li>
+            <li><strong>Attempted:</strong> <span th:text="${attemptedCount}"></span></li>
+            <li><strong>Correct:</strong> <span th:text="${correctCount}"></span></li>
+            <li><strong>Score:</strong> 
+                <span th:text="${correctCount}"></span> / 
+                <span th:text="${totalQuestions}"></span>
+            </li>
+            <li><strong>Percentage:</strong> 
+                <span th:text="${(correctCount * 100) / totalQuestions} + '%'"></span>
+            </li>
+        </ul>
+
+        <p th:if="${correctCount == totalQuestions}">🎉 Perfect Score! You're a quiz master!</p>
+        <p th:if="${correctCount == 0}">😢 Oops! Try again and crush it next time.</p>
+    </div>
+
+    <div th:each="result : ${results}" class="question-block">
+        <p><strong>Question:</strong> <span th:text="${result.questionText}"></span></p>
+        <p><strong>Your Answer:</strong> 
+            <span th:text="${result.submittedAnswer}" 
+                  th:class="${result.correct} ? 'correct' : 'incorrect'"></span>
+        </p>
+        <p><strong>Correct Answer:</strong> <span th:text="${result.correctAnswer}"></span></p>
+        <hr/>
+    </div>
+
+    <form th:action="@{/questions/quiz-selection}" method="get">
+        <input type="hidden" name="category" th:value="${category}" />
+        <input type="hidden" name="difficulty" th:value="${difficulty}" />
+        <button type="submit">🔁 Retry Quiz</button>
+    </form>
+
+    <br/>
+    <a th:href="@{/user/user_dashboard}">🏠 Back to User Dashboard</a>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Questions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        td span {
+            display: inline-block;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h2>List of MCQ Questions</h2>
+
+    <a th:href="@{/admin/dashboard}">⬅ Back to Dashboard</a>
+    <a th:href="@{/admin/add_question}">➕ Add New Question</a>
+
+    <br/><br/>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Difficulty</th>
+                <th>Question</th>
+                <th>Options</th>
+                <th>Correct Answer</th>
+                <th>Keyword</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="q : ${questions}">
+                <td th:text="${q.id}"></td>
+                <td th:text="${q.category}"></td>
+                <td th:text="${q.difficulty}"></td>
+                <td th:text="${q.text}"></td>
+                <td>
+                    A) <span th:text="${q.optionA}"></span><br/>
+                    B) <span th:text="${q.optionB}"></span><br/>
+                    C) <span th:text="${q.optionC}"></span><br/>
+                    D) <span th:text="${q.optionD}"></span>
+                </td>
+                <td th:text="${q.correctAnswer}"></td>
+                <td th:text="${q.expectedKeyword}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
